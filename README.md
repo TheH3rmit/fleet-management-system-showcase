@@ -10,7 +10,7 @@ Prerequisites
 
 1) Clone the repository
 `git clone https://github.com/TheH3rmit/fleet-management-system-showcase.git`
-`cd fleet-management-system`
+`cd fleet-management-system-showcase`
 
 2) Local development (frontend + backend)
 
@@ -43,7 +43,7 @@ Frontend E2E tests:
 
 On the server:
 `git clone https://github.com/TheH3rmit/fleet-management-system-showcase.git`
-`cd fleet-management-system`
+`cd fleet-management-system-showcase`
 
 Edit production environment:
 - Copy `.env.example` to `.env.prod` and set strong values:
