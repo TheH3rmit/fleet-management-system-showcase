@@ -1,0 +1,95 @@
+@use '../../shared/styles/variable' as v;
+
+.login-page {
+  min-height: calc(100dvh - 72px - 44px); // header + nav
+  display: grid;
+  place-items: center;
+  padding: v.$space-l;
+  background: v.$color-bg;
+}
+
+.login-card {
+  width: min(420px, 100%);
+  background: v.$color-surface;
+  color: v.$color-text;
+  border-radius: v.$radius-m;
+  box-shadow: v.$shadow-md;
+  padding: v.$space-l;
+}
+
+.brand {
+  display: flex;
+  gap: v.$space-m;
+  align-items: center;
+  margin-bottom: v.$space-l;
+
+  .logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .title {
+    h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0.2rem 0 0;
+      color: #c5c5c5;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.form {
+  display: grid;
+  gap: v.$space-m;
+}
+
+button[mat-raised-button] {
+  height: 44px;
+}
+
+.error {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid rgba(255, 77, 77, 0.35);
+  padding: v.$space-s v.$space-m;
+  border-radius: v.$radius-s;
+}
+
+.demo-accounts {
+  margin-top: v.$space-s;
+  padding: v.$space-s v.$space-m;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: v.$radius-s;
+  background: rgba(255, 255, 255, 0.04);
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+
+  .demo-title {
+    font-weight: 600;
+    color: #e6e6e6;
+  }
+
+  .demo-row {
+    display: flex;
+    justify-content: space-between;
+    gap: v.$space-s;
+    color: #c5c5c5;
+  }
+
+  .role {
+    font-weight: 600;
+    color: #dddddd;
+  }
+}
+
+.hint {
+  margin-top: v.$space-m;
+  font-size: 0.85rem;
+  color: #c5c5c5;
+  text-align: center;
+}

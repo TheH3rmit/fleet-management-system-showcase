@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
+@use './app/shared/styles/variable' as v;
+
+
+@use 'app/shared/styles/layout';
+@use 'app/shared/styles/global';
+@use 'app/shared/styles/page-layout';
+
+@include mat.core();
+
+$primary: mat.define-palette(mat.$blue-palette, 600);
+$accent: mat.define-palette(mat.$amber-palette, 500);
+$warn: mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+@include mat.all-component-themes($theme);
+.safe-dialog .mat-mdc-dialog-surface {
+  padding: 24px 28px 20px;
+  background: v.$color-surface;
+  color: v.$color-text;
+
+  // $color-border = #000
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.safe-dialog .mat-mdc-dialog-title {
+  margin: 0 0 12px 0;
+}
+
+.safe-dialog .mat-mdc-dialog-content {
+  padding: 0; // form sam robi spacing
+}
+
+.safe-dialog .mat-mdc-dialog-actions {
+  padding: 0;
+}

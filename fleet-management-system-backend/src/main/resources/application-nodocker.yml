@@ -1,0 +1,5 @@
+# application-nodocker.yml
+spring:
+  docker:
+    compose:
+      enabled: false

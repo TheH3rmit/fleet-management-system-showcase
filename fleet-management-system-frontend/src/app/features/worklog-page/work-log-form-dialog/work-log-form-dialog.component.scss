@@ -1,0 +1,13 @@
+@use '../../../shared/styles/variable' as v;
+
+.form {
+  display: grid;
+  gap: v.$space-m;
+  min-width: min(560px, 90vw);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: v.$space-s;
+}

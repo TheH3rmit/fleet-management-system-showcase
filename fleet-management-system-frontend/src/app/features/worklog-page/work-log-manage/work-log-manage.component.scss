@@ -1,0 +1,54 @@
+@use '../../../shared/styles/page-layout' as page;
+@use '../../../shared/styles/variable' as v;
+
+.page {
+  @include page.page-base;
+  background: v.$color-surface;
+  color: v.$color-text;
+}
+
+.page-header {
+  @include page.page-header;
+
+  .title {
+    display: grid;
+    gap: 2px;
+  }
+}
+
+.filters {
+  @include page.filters;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 260px;
+  }
+}
+
+
+.table-wrapper {
+  @include page.table-wrapper;
+}
+
+.full-width { width: 100%; }
+
+.wrap {
+  max-width: 520px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.actions-col {
+  white-space: nowrap;
+}
+
+.muted {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: v.$space-m 0;
+}

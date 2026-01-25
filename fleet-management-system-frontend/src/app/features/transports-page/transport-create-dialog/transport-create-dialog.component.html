@@ -1,0 +1,195 @@
+<h2>New transport</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Contractual due at</mat-label>
+    <input matInput type="datetime-local" formControlName="contractualDueAt" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Planned start</mat-label>
+    <input matInput type="datetime-local" formControlName="plannedStartAt" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Planned end</mat-label>
+    <input matInput type="datetime-local" formControlName="plannedEndAt" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Planned distance (km)</mat-label>
+    <input matInput type="number" formControlName="plannedDistanceKm" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Vehicle</mat-label>
+    <input
+      matInput
+      [formControl]="vehicleSearchCtrl"
+      [matAutocomplete]="vehicleAuto"
+      required
+    />
+    <mat-autocomplete
+      #vehicleAuto="matAutocomplete"
+      [displayWith]="displayVehicle"
+      (optionSelected)="onVehicleSelected($event.option.value)"
+    >
+      <mat-option *ngFor="let v of filteredVehicles()" [value]="v.id">
+        {{ v.licensePlate }} - {{ v.manufacturer }} {{ v.model }} (id: {{ v.id }})
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="vehicleSearchCtrl.hasError('required')">Vehicle is required</mat-error>
+    <mat-error *ngIf="vehicleSearchCtrl.hasError('selection')">Select a vehicle from the list</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Trailer</mat-label>
+    <input
+      matInput
+      [formControl]="trailerSearchCtrl"
+      [matAutocomplete]="trailerAuto"
+      required
+    />
+    <mat-autocomplete
+      #trailerAuto="matAutocomplete"
+      [displayWith]="displayTrailer"
+      (optionSelected)="onTrailerSelected($event.option.value)"
+    >
+      <mat-option *ngFor="let t of filteredTrailers()" [value]="t.id">
+        {{ t.licensePlate }} - {{ t.name }} (id: {{ t.id }})
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="trailerSearchCtrl.hasError('required')">Trailer is required</mat-error>
+    <mat-error *ngIf="trailerSearchCtrl.hasError('selection')">Select a trailer from the list</mat-error>
+  </mat-form-field>
+
+  <div class="field-with-action">
+    <mat-form-field appearance="outline">
+      <mat-label>Pickup location</mat-label>
+      <input
+        matInput
+        [formControl]="pickupSearchCtrl"
+        [matAutocomplete]="pickupAuto"
+        required
+      />
+      <mat-autocomplete
+        #pickupAuto="matAutocomplete"
+        [displayWith]="displayPickup"
+        (optionSelected)="onPickupSelected($event.option.value)"
+      >
+        <mat-option *ngFor="let loc of filteredLocations('pickup')" [value]="loc.id">
+          {{ locationLabel(loc) }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="pickupSearchCtrl.hasError('required')">Pickup location is required</mat-error>
+      <mat-error *ngIf="pickupSearchCtrl.hasError('selection')">Select a pickup location from the list</mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button type="button" (click)="openAddLocation('pickup')">
+      <mat-icon>add</mat-icon>
+      Add
+    </button>
+  </div>
+
+  <div class="field-with-action">
+    <mat-form-field appearance="outline">
+      <mat-label>Delivery location</mat-label>
+      <input
+        matInput
+        [formControl]="deliverySearchCtrl"
+        [matAutocomplete]="deliveryAuto"
+        required
+      />
+      <mat-autocomplete
+        #deliveryAuto="matAutocomplete"
+        [displayWith]="displayDelivery"
+        (optionSelected)="onDeliverySelected($event.option.value)"
+      >
+        <mat-option *ngFor="let loc of filteredLocations('delivery')" [value]="loc.id">
+          {{ locationLabel(loc) }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="deliverySearchCtrl.hasError('required')">Delivery location is required</mat-error>
+      <mat-error *ngIf="deliverySearchCtrl.hasError('selection')">Select a delivery location from the list</mat-error>
+    </mat-form-field>
+
+    <button mat-stroked-button type="button" (click)="openAddLocation('delivery')">
+      <mat-icon>add</mat-icon>
+      Add
+    </button>
+  </div>
+
+  <mat-card class="block-card">
+    <div class="block-header">
+      <div class="title">
+        <h3>Cargo (optional)</h3>
+        <div class="muted">You can add multiple cargo items before creating transport</div>
+      </div>
+
+      <button mat-stroked-button type="button" (click)="openAddCargoDraft()">
+        <mat-icon>add</mat-icon>
+        Add cargo
+      </button>
+    </div>
+
+    <div *ngIf="cargoDrafts().length === 0" class="muted" style="margin-top: 8px;">
+      No cargo added
+    </div>
+
+    <div class="mini-table" *ngIf="cargoDrafts().length > 0">
+      <table>
+        <tr>
+          <th>Description</th>
+          <th>Weight (kg)</th>
+          <th>Volume (m3)</th>
+          <th>Pickup</th>
+          <th>Delivery</th>
+          <th class="mini-actions"></th>
+        </tr>
+
+        <tr *ngFor="let c of cargoDrafts(); let i = index">
+          <td class="wrap">{{ c.cargoDescription }}</td>
+          <td>{{ c.weightKg }}</td>
+          <td>{{ c.volumeM3 }}</td>
+          <td>{{ c.pickupDate ? (c.pickupDate | date:'short') : 'N/A' }}</td>
+          <td>{{ c.deliveryDate ? (c.deliveryDate | date:'short') : 'N/A' }}</td>
+          <td class="mini-actions">
+            <button mat-icon-button type="button" (click)="openEditCargoDraft(i)" matTooltip="Edit" aria-label="Edit cargo">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button type="button" (click)="removeCargoDraft(i)" matTooltip="Delete" aria-label="Remove cargo">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-card>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Driver (optional)</mat-label>
+    <input
+      matInput
+      [formControl]="driverSearchCtrl"
+      [matAutocomplete]="driverAuto"
+    />
+    <mat-autocomplete
+      #driverAuto="matAutocomplete"
+      [displayWith]="displayDriver"
+      (optionSelected)="onDriverSelected($event.option.value)"
+    >
+      <mat-option [value]="null">None</mat-option>
+      <mat-option *ngFor="let d of filteredDrivers()" [value]="d.userId">
+        {{ d.firstName }} {{ d.lastName }} (userId: {{ d.userId }})
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="driverSearchCtrl.hasError('selection')">Select a driver from the list</mat-error>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">
+      Create
+    </button>
+  </div>
+</form>

@@ -1,0 +1,23 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    org.hibernate.SQL: warn
+    org.testcontainers: info
+
+app:
+  cors:
+    allowed-origins: []
+
+security:
+  jwt:
+    secret: "test-secret-32-chars-minimum-123456"
+    expiration-minutes: 60
+    refresh-expiration: 7

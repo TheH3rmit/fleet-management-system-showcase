@@ -1,0 +1,83 @@
+@use '../styles/variable' as v;
+@use '../styles/layout' as layout;
+
+@mixin page-base {
+  display: grid;
+  gap: v.$space-m;
+  padding: v.$space-l;
+  background: v.$color-surface;
+  border-radius: v.$radius-m;
+  box-shadow: v.$shadow-sm;
+  font-family: v.$font-main;
+  color: v.$color-text;
+}
+
+@mixin page-header {
+  @include layout.flex(space-between, center);
+
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    color: v.$color-text;
+  }
+
+  .actions {
+    display: flex;
+    gap: v.$space-s;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: v.$space-s;
+  }
+}
+
+@mixin filters {
+  @include layout.flex(flex-start, center);
+  flex-wrap: wrap;
+  gap: v.$space-s;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 220px;
+  }
+}
+
+@mixin table-wrapper {
+  overflow-x: auto;
+  border-radius: v.$radius-s;
+  background: v.$color-surface;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 0.6rem;
+    }
+
+    th {
+      color: white;
+      font-weight: 600;
+      border-bottom: 2px solid v.$color-border;
+    }
+
+    td {
+      border-bottom: 1px solid v.$color-border;
+    }
+
+    tr:hover {
+      background: v.$color-hover;
+    }
+
+    .mat-mdc-icon-button[color="warn"]:not([disabled]) mat-icon {
+      color: #ff4d4d;
+    }
+
+    .mat-mdc-icon-button[color="warn"][disabled] mat-icon {
+      color: rgba(255, 255, 255, 0.45);
+    }
+  }
+}

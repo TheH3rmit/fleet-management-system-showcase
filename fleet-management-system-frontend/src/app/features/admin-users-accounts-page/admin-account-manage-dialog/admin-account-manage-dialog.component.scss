@@ -1,0 +1,40 @@
+h2 { margin: 0 0 6px; }
+.subtitle { margin: 0 0 12px; opacity: 0.85; }
+
+.kv {
+  margin: 8px 0 14px;
+  display: grid;
+  gap: 8px;
+
+  .row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+
+    .k { opacity: 0.75; }
+    .v { font-weight: 600; }
+  }
+}
+
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+}
+
+.section-title {
+  margin: 4px 0 0;
+}
+

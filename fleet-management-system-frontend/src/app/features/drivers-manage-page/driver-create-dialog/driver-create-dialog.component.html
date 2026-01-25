@@ -1,0 +1,102 @@
+<h2>Add driver</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+
+  <!-- USER AUTOCOMPLETE -->
+  <mat-form-field appearance="outline">
+    <mat-label>User</mat-label>
+
+    <input
+      matInput
+      [formControl]="userQueryCtrl"
+      [matAutocomplete]="auto"
+      placeholder="Type name or email (min 2 chars)"
+      [readonly]="!!selectedUser()"
+    />
+
+    <!-- clear selected user -->
+    <button
+      *ngIf="selectedUser()"
+      matSuffix
+      mat-icon-button
+      type="button"
+      (click)="clearUser()"
+      aria-label="Clear selection"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <!-- loading spinner -->
+    <mat-spinner
+      *ngIf="loadingUsers"
+      matSuffix
+      diameter="18">
+    </mat-spinner>
+
+    <!-- autocomplete dropdown -->
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUser">
+      <mat-option
+        *ngFor="let u of userOptions()"
+        [value]="u"
+        (onSelectionChange)="$event.isUserInput && onUserSelected(u)"
+      >
+        <div style="display:flex; flex-direction:column;">
+          <span><strong>{{ u.firstName }} {{ u.lastName }}</strong></span>
+          <span style="opacity:.75; font-size:12px;">
+        {{ u.email }} (id: {{ u.id }})
+      </span>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+
+    <mat-hint *ngIf="!selectedUser()">
+      Start typing and pick a user from the list
+    </mat-hint>
+
+    <mat-error *ngIf="form.controls.userId.invalid">
+      User is required
+    </mat-error>
+  </mat-form-field>
+
+  <!-- selected user info -->
+  <div *ngIf="selectedUser() as u" class="selected-user">
+    Selected:
+    <strong>{{ u.firstName }} {{ u.lastName }}</strong>
+    ({{ u.email }})
+  </div>
+
+  <!-- DRIVER FIELDS -->
+  <mat-form-field appearance="outline">
+    <mat-label>License number</mat-label>
+    <input matInput formControlName="driverLicenseNumber" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>License category</mat-label>
+    <input matInput formControlName="driverLicenseCategory" placeholder="e.g. C+E" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>License expiry</mat-label>
+    <input matInput type="date" formControlName="driverLicenseExpiryDate" />
+  </mat-form-field>
+
+  <!-- ACTIONS -->
+  <div class="actions">
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="close()">
+      Cancel
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!canSubmit()">
+      Add
+    </button>
+  </div>
+</form>
+

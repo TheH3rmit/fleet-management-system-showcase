@@ -1,0 +1,78 @@
+<h2>Edit transport #{{ data.transport.id }}</h2>
+
+<div *ngIf="!canEdit()" class="info">
+  Dispatcher can edit only <b>PLANNED</b>. Admin can edit any status.
+</div>
+
+<div class="dialog-toolbar">
+  <button mat-stroked-button type="button" (click)="openStatusHistory()">
+    <mat-icon>history</mat-icon>
+    Status history
+  </button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Contractual due at</mat-label>
+    <input matInput type="datetime-local" formControlName="contractualDueAt" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Planned start</mat-label>
+    <input matInput type="datetime-local" formControlName="plannedStartAt" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Planned end</mat-label>
+    <input matInput type="datetime-local" formControlName="plannedEndAt" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Planned distance (km)</mat-label>
+    <input matInput type="number" formControlName="plannedDistanceKm" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Vehicle</mat-label>
+    <mat-select formControlName="vehicleId" required>
+      <mat-option *ngFor="let v of availableVehicles()" [value]="v.id">
+        {{ v.licensePlate }} — {{ v.manufacturer }} {{ v.model }} (id: {{ v.id }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Trailer (optional)</mat-label>
+    <mat-select formControlName="trailerId">
+      <mat-option [value]="null">— none —</mat-option>
+      <mat-option *ngFor="let t of availableTrailers()" [value]="t.id">
+        {{ t.licensePlate }} — {{ t.name }} (id: {{ t.id }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Pickup location</mat-label>
+    <mat-select formControlName="pickupLocationId" required>
+      <mat-option *ngFor="let loc of locations" [value]="loc.id">
+        {{ loc.city }}, {{ loc.street }} {{ loc.buildingNumber }} ({{ loc.postcode }}) (id: {{ loc.id }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Delivery location</mat-label>
+    <mat-select formControlName="deliveryLocationId" required>
+      <mat-option *ngFor="let loc of locations" [value]="loc.id">
+        {{ loc.city }}, {{ loc.street }} {{ loc.buildingNumber }} ({{ loc.postcode }}) (id: {{ loc.id }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!canEdit()">
+      Save
+    </button>
+  </div>
+</form>

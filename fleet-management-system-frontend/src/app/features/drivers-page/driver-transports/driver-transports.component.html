@@ -1,0 +1,176 @@
+<div class="section">
+  <div class="section-header">
+    <h3>My transports</h3>
+
+    <button mat-stroked-button type="button" (click)="load()" [disabled]="loading()" matTooltip="Refresh">
+      <mat-icon>refresh</mat-icon>
+      Refresh
+    </button>
+  </div>
+
+  <div class="state" *ngIf="loading()">
+    <mat-progress-spinner diameter="28" mode="indeterminate"></mat-progress-spinner>
+    <span>Loading...</span>
+  </div>
+
+  <div class="error" *ngIf="!loading() && error()">{{ error() }}</div>
+
+  <div class="current" *ngIf="!loading() && !error() && currentTransport() as ct">
+    <div class="current-header">Current transport</div>
+    <mat-card class="current-card">
+      <mat-card-content>
+        <div class="current-meta">
+          <div class="current-title">#{{ ct.id }} - {{ ct.status }}</div>
+          <div class="current-sub">Vehicle: {{ vehicleLabel(ct) }}</div>
+          <div class="current-sub">Trailer: {{ trailerLabel(ct) }}</div>
+          <div class="current-sub">
+            Planned start: {{ ct.plannedStartAt ? (ct.plannedStartAt | date : 'short') : 'N/A' }}
+          </div>
+        </div>
+        <div class="actions">
+          <span
+            [matTooltip]="actionTooltip(ct, 'accept')"
+            [matTooltipDisabled]="canAccept(ct) && !isBusy(ct)"
+          >
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="onAccept(ct)"
+              [disabled]="!canAccept(ct) || isBusy(ct)"
+            >
+              Accept
+            </button>
+          </span>
+
+          <span
+            [matTooltip]="actionTooltip(ct, 'start')"
+            [matTooltipDisabled]="canStart(ct) && !isBusy(ct)"
+          >
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="onStart(ct)"
+              [disabled]="!canStart(ct) || isBusy(ct)"
+            >
+              Start
+            </button>
+          </span>
+
+          <span
+            [matTooltip]="actionTooltip(ct, 'finish')"
+            [matTooltipDisabled]="canFinish(ct) && !isBusy(ct)"
+          >
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="onFinish(ct)"
+              [disabled]="!canFinish(ct) || isBusy(ct)"
+            >
+              Finish
+            </button>
+          </span>
+
+          <mat-progress-spinner
+            *ngIf="isBusy(ct)"
+            diameter="18"
+            mode="indeterminate"
+          ></mat-progress-spinner>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="all" *ngIf="!loading() && !error()">
+    <div class="all-header">All transports</div>
+    <div class="table-wrapper mat-elevation-z2">
+      <table mat-table [dataSource]="transports()">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let t">#{{ t.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let t">{{ t.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="vehicleId">
+        <th mat-header-cell *matHeaderCellDef>Vehicle</th>
+        <td mat-cell *matCellDef="let t">{{ vehicleLabel(t) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="trailerId">
+        <th mat-header-cell *matHeaderCellDef>Trailer</th>
+        <td mat-cell *matCellDef="let t">{{ trailerLabel(t) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="plannedStartAt">
+        <th mat-header-cell *matHeaderCellDef>Planned start</th>
+        <td mat-cell *matCellDef="let t">
+          {{ t.plannedStartAt ? (t.plannedStartAt | date : 'short') : 'N/A' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let t" class="actions">
+          <span
+            [matTooltip]="actionTooltip(t, 'accept')"
+            [matTooltipDisabled]="canAccept(t) && !isBusy(t)"
+          >
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="onAccept(t)"
+              [disabled]="!canAccept(t) || isBusy(t)"
+            >
+              Accept
+            </button>
+          </span>
+
+          <span
+            [matTooltip]="actionTooltip(t, 'start')"
+            [matTooltipDisabled]="canStart(t) && !isBusy(t)"
+          >
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="onStart(t)"
+              [disabled]="!canStart(t) || isBusy(t)"
+            >
+              Start
+            </button>
+          </span>
+
+          <span
+            [matTooltip]="actionTooltip(t, 'finish')"
+            [matTooltipDisabled]="canFinish(t) && !isBusy(t)"
+          >
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="onFinish(t)"
+              [disabled]="!canFinish(t) || isBusy(t)"
+            >
+              Finish
+            </button>
+          </span>
+
+          <mat-progress-spinner
+            *ngIf="isBusy(t)"
+            diameter="18"
+            mode="indeterminate"
+          ></mat-progress-spinner>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="cols"></tr>
+      <tr mat-row *matRowDef="let row; columns: cols"></tr>
+    </table>
+
+      <div class="empty" *ngIf="!hasAny()">No transports.</div>
+    </div>
+  </div>
+</div>

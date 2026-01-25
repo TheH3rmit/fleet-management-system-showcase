@@ -1,0 +1,25 @@
+@use '../styles/variable' as v;
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 v.$space-l;
+}
+
+.section {
+  margin-bottom: v.$space-xl;
+}
+
+.grid {
+  display: grid;
+  gap: v.$space-m;
+}
+
+@mixin flex($justify: flex-start, $align: center, $gap: v.$space-s) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+

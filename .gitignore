@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+/fleet-management-system-frontend/.vscode/
+.DS_Store
+Thumbs.db
+/.vscode/settings.json

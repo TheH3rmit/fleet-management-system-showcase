@@ -1,0 +1,16 @@
+@use '../../shared/styles/page-layout' as page;
+@use '../../shared/styles/variable' as v;
+
+.page { @include page.page-base; }
+.page-header { @include page.page-header; }
+
+.tabs {
+  background: v.$color-surface;
+  border-radius: v.$radius-m;
+  overflow: hidden;
+}
+
+.tab-body {
+  padding: v.$space-l;
+}
+.loading { display: flex; justify-content: center; padding: 16px 0; }

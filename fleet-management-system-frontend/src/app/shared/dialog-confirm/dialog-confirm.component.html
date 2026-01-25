@@ -1,0 +1,25 @@
+<h2 mat-dialog-title style="display:flex; align-items:center; gap:.5rem;">
+  <mat-icon [color]="data.confirmColor ?? 'warn'">
+    {{ data.icon ?? 'warning' }}
+  </mat-icon>
+  <span>{{ data.title ?? 'Confirm action' }}</span>
+</h2>
+
+<mat-dialog-content>
+  <p style="margin:0;">{{ data.message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="close(false)">
+    {{ data.cancelText ?? 'Cancel' }}
+  </button>
+
+  <button
+    mat-raised-button
+    [color]="data.confirmColor ?? 'warn'"
+    (click)="close(true)"
+    cdkFocusInitial
+  >
+    {{ data.confirmText ?? 'Confirm' }}
+  </button>
+</mat-dialog-actions>

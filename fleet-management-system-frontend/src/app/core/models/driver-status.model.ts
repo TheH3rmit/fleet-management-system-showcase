@@ -1,0 +1,9 @@
+export enum DriverStatus {
+  AVAILABLE = 'AVAILABLE',
+  UNAVAILABLE = 'UNAVAILABLE',
+  ON_TRANSPORT = 'ON_TRANSPORT',
+  SUSPENDED = 'SUSPENDED',
+}
+
+
+

@@ -1,0 +1,34 @@
+<h2>Account details #{{ account().id }}</h2>
+
+<div class="subtitle" *ngIf="data.user as u">
+  {{ u.firstName }} {{ u.lastName }} • {{ u.email }}
+</div>
+
+<div class="kv">
+  <div class="row">
+    <div class="k">Login</div>
+    <div class="v">{{ account().login }}</div>
+  </div>
+  <div class="row">
+    <div class="k">Status</div>
+    <div class="v">{{ account().status }}</div>
+  </div>
+  <div class="row">
+    <div class="k">Roles</div>
+    <div class="v">{{ account().roles.join(', ') }}</div>
+  </div>
+  <div class="row">
+    <div class="k">Created</div>
+    <div class="v">{{ account().createdAt }}</div>
+  </div>
+  <div class="row">
+    <div class="k">Last login</div>
+    <div class="v">{{ account().lastLoginAt ?? '—' }}</div>
+  </div>
+</div>
+
+<div class="actions">
+  <button mat-stroked-button type="button" (click)="close()">
+    Close
+  </button>
+</div>

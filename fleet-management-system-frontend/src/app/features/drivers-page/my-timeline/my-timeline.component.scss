@@ -1,0 +1,55 @@
+@use '../../../shared/styles/variable' as v;
+@use '../../../shared/styles/page-layout' as page;
+
+.section {
+  display: grid;
+  gap: v.$space-m;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: v.$space-s;
+  flex-wrap: wrap;
+
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  gap: v.$space-s;
+  color: #c5c5c5;
+}
+
+.error {
+  padding: v.$space-s v.$space-m;
+  border-radius: v.$radius-s;
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid rgba(255, 77, 77, 0.35);
+}
+
+.table-wrapper {
+  @include page.table-wrapper;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: v.$space-s;
+  flex-wrap: wrap;
+}
+
+.transport-select {
+  min-width: 200px;
+}
+
+.empty {
+  padding: v.$space-m;
+  color: #c5c5c5;
+}

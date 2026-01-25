@@ -1,0 +1,29 @@
+//_variable.scss
+/* ---------------- COLORS ---------------- */
+$color-primary: #1e87e4;
+$color-primary-light: #60A5FA;
+$color-accent: #FFC107;
+$color-bg: #6c6c6c;
+$color-surface: #000000;
+$color-text: #ffffff;
+$color-muted: #666;
+$color-border: #000000;
+$color-hover: #5a5a5a;
+
+/* ---------------- TYPOGRAPHY ---------------- */
+$font-main: 'Inter', sans-serif;
+$font-size-base: 1rem;
+$font-size-small: 0.875rem;
+
+/* ---------------- SPACING ---------------- */
+$space-xs: 0.25rem;
+$space-s: 0.5rem;
+$space-m: 1rem;
+$space-l: 1.5rem;
+$space-xl: 2rem;
+
+/* ---------------- RADIUS & SHADOW ---------------- */
+$radius-s: 6px;
+$radius-m: 12px;
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08);

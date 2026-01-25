@@ -1,0 +1,106 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Drivers</h1>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="openCreateDialog()">
+        <mat-icon>add</mat-icon>
+        Add driver
+      </button>
+    </div>
+  </div>
+
+
+  <div class="filters">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput [formControl]="searchCtrl" placeholder="Name, email, phone, license, status..." />
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="table-wrapper mat-elevation-z2">
+    <table mat-table [dataSource]="page().content" matSort (matSortChange)="onSort($event)">
+      <!-- ID / userId -->
+      <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
+        <td mat-cell *matCellDef="let d">{{ d.userId }}</td>
+      </ng-container>
+
+      <!-- Name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let d">
+          {{ d.firstName }} {{ d.lastName }}
+        </td>
+      </ng-container>
+
+      <!-- Email -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let d">{{ d.email }}</td>
+      </ng-container>
+
+      <!-- Phone -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+        <td mat-cell *matCellDef="let d">{{ d.phone || '—' }}</td>
+      </ng-container>
+
+      <!-- License -->
+      <ng-container matColumnDef="license">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>License</th>
+        <td mat-cell *matCellDef="let d">
+          {{ d.driverLicenseNumber || '—' }} ({{ d.driverLicenseCategory || '—' }})
+        </td>
+      </ng-container>
+
+      <!-- Status + dropdown -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let d">{{ d.driverStatus }}</td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let d" class="actions-col">
+          <button mat-icon-button (click)="openEditDialog(d)" matTooltip="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button type="button" (click)="openWorkLog(d)" matTooltip="Work log" aria-label="Work log">
+            <mat-icon>schedule</mat-icon>
+          </button>
+          <span [matTooltip]="deleteTooltip(d)" [matTooltipDisabled]="canDelete(d)">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="delete(d)"
+              matTooltip="Delete"
+              [disabled]="!canDelete(d)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="cols"></tr>
+      <tr mat-row *matRowDef="let row; columns: cols"></tr>
+    </table>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <mat-progress-spinner
+      diameter="28" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <mat-paginator
+    [length]="page().totalElements || 0"
+    [pageIndex]="pageIndex()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[5,10,20]"
+    (page)="onPage($event)">
+  </mat-paginator>
+</div>

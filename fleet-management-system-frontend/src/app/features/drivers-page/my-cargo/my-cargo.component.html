@@ -1,0 +1,53 @@
+<div class="section">
+  <div class="section-header">
+    <h3>My cargo</h3>
+    <div class="controls">
+      <button
+        mat-stroked-button
+        type="button"
+        [color]="viewMode() === 'current' ? 'primary' : undefined"
+        (click)="setMode('current')"
+      >
+        Current
+      </button>
+      <button
+        mat-stroked-button
+        type="button"
+        [color]="viewMode() === 'all' ? 'primary' : undefined"
+        (click)="setMode('all')"
+      >
+        All (read-only)
+      </button>
+      <button mat-stroked-button type="button" (click)="load()" [disabled]="loading()">
+        <mat-icon>refresh</mat-icon>
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <div class="state" *ngIf="loading()">
+    <mat-progress-spinner diameter="28" mode="indeterminate"></mat-progress-spinner>
+    <span>Loading...</span>
+  </div>
+
+  <div class="error" *ngIf="!loading() && error()">{{ error() }}</div>
+
+  <div class="list" *ngIf="!loading() && !error()">
+    <mat-card class="list-item" *ngFor="let c of filteredCargo()">
+      <mat-card-content>
+          <div class="item">
+            <div class="title">{{ c.cargoDescription || ('Cargo #' + c.id) }}</div>
+            <div class="subtitle">Weight: {{ c.weightKg }} kg</div>
+            <div class="subtitle">Volume: {{ c.volumeM3 }} m3</div>
+            <div class="subtitle">Pickup: {{ c.pickupDate ? (c.pickupDate | date:'short') : 'N/A' }}</div>
+            <div class="subtitle">Delivery: {{ c.deliveryDate ? (c.deliveryDate | date:'short') : 'N/A' }}</div>
+            <div class="subtitle">Transport: {{ c.transportId ?? 'N/A' }}</div>
+          </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="empty" *ngIf="(filteredCargo()?.length ?? 0) === 0">
+      No cargo.
+    </div>
+  </div>
+</div>

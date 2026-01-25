@@ -1,0 +1,71 @@
+<div class="login-page">
+  <mat-card class="login-card">
+    <div class="brand">
+      <div class="title">
+        <h1>Sign in</h1>
+        <p>Fleet Management System</p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Login</mat-label>
+        <input matInput formControlName="login" autocomplete="username" />
+        <mat-error *ngIf="form.controls.login.touched && form.controls.login.invalid">
+          Login is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          autocomplete="current-password"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+        >
+          <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="form.controls.password.touched && form.controls.password.invalid">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">
+        <ng-container *ngIf="!loading; else loadingTpl">Login</ng-container>
+        <ng-template #loadingTpl>
+          <mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
+        </ng-template>
+      </button>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <div class="demo-accounts">
+        <div class="demo-title">Demo accounts</div>
+        <div class="demo-row">
+          <span class="role">Admin</span>
+          <span class="cred">admin / admin</span>
+        </div>
+        <div class="demo-row">
+          <span class="role">Dispatcher</span>
+          <span class="cred">dispatcher / dispacher</span>
+        </div>
+        <div class="demo-row">
+          <span class="role">Driver</span>
+          <span class="cred">driver1 / driver1</span>
+        </div>
+      </div>
+
+      <div class="hint">
+        Access restricted to authorized users only.
+      </div>
+    </form>
+  </mat-card>
+</div>

@@ -1,0 +1,42 @@
+# application.yml
+spring:
+  session:
+    store-type: none
+
+  application:
+    name: fleet-management-system-backend
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:app}
+    username: ${DB_USER:app}
+    password: ${DB_PASS:app}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-minutes: 60
+    refresh-expiration: 7
+
+app:
+  cors:
+    allowed-origins: []

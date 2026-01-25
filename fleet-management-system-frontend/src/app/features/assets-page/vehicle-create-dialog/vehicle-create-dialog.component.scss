@@ -1,0 +1,4 @@
+.grid { display: grid; gap: 12px; }
+.form-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.actions { display: flex; justify-content: flex-end; gap: 8px; }
+h2 { margin: 0 0 8px; }

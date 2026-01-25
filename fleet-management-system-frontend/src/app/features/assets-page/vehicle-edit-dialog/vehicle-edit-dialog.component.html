@@ -1,0 +1,57 @@
+<h2>Edit vehicle #{{ data.vehicle.id }}</h2>
+
+<form class="grid" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Manufacturer</mat-label>
+      <input matInput formControlName="manufacturer" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Model</mat-label>
+      <input matInput formControlName="model" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Registration</mat-label>
+      <input matInput formControlName="licensePlate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="vehicleStatus">
+        <mat-option *ngFor="let st of vehicleStatuses" [value]="st">{{ st }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date of production</mat-label>
+      <input matInput type="date" formControlName="dateOfProduction" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Mileage</mat-label>
+      <input matInput type="number" formControlName="mileage" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fuel</mat-label>
+      <input matInput formControlName="fuelType" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Allowed load</mat-label>
+      <input matInput type="number" formControlName="allowedLoad" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Insurance number</mat-label>
+      <input matInput formControlName="insuranceNumber" />
+    </mat-form-field>
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </div>
+</form>

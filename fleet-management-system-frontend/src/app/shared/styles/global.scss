@@ -1,0 +1,97 @@
+//global.scss
+@use '../styles/variable' as v;
+@use '../styles/layout';
+@use '../styles/page-layout';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: v.$color-bg;
+  color: v.$color-text;
+  overflow-x: hidden;
+}
+
+a {
+  color: v.$color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1;
+}
+
+mat-paginator {
+  background: #424242;
+}
+
+.snack-success { }
+.snack-info    { }
+.snack-warn    { }
+.snack-error   { }
+
+/* ---------------------------------------
+   Angular Material (MDC) global overrides
+   (no ::ng-deep, consistent dark surface)
+---------------------------------------- */
+
+/* Outlined form-fields (login + dark cards) */
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-outline-color: #444;
+  --mdc-outlined-text-field-hover-outline-color: #666;
+  --mdc-outlined-text-field-focus-outline-color: #{v.$color-primary};
+
+  --mdc-outlined-text-field-label-text-color: #ffffff;
+  --mdc-outlined-text-field-input-text-color: #ffffff;
+  --mdc-outlined-text-field-caret-color: #{v.$color-primary};
+}
+
+/* Placeholder color */
+.mdc-text-field--outlined input::placeholder {
+  color: #ffffff;
+}
+
+/* Mat-Select on dark */
+.mat-mdc-select-panel {
+  background: #111 !important;
+  color: #fff;
+}
+
+/* Tabs (DriversPage) */
+.mat-mdc-tab-header {
+  background: #1f1f1f;
+}
+
+.mdc-tab__text-label {
+  color: #ffffff;
+}
+
+.mdc-tab--active .mdc-tab__text-label {
+  color: #{v.$color-primary};
+}
+
+.mdc-tab-indicator__content--underline {
+  border-color: #{v.$color-primary};
+}
+
+/* Optional: tab body background stays dark */
+.mat-mdc-tab-body-content {
+  background: #{v.$color-surface};
+  color: #{v.$color-text};
+}
+
+.mat-mdc-form-field .mdc-floating-label,
+.mat-mdc-form-field .mdc-floating-label.mdc-floating-label--required,
+.mat-mdc-form-field .mdc-floating-label--float-above {
+  color: #ffffff;
+}

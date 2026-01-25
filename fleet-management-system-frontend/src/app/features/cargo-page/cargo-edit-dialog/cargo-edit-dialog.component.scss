@@ -1,0 +1,13 @@
+@use '../../../shared/styles/variable' as v;
+@use '../../../shared/styles/layout' as layout;
+
+.form {
+  display: grid;
+  gap: v.$space-m;
+  width: 100%;
+}
+
+.actions {
+  @include layout.flex(flex-end, center, v.$space-s);
+  margin-top: v.$space-s;
+}

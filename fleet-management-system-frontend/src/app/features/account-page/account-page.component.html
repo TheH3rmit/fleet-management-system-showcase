@@ -1,0 +1,132 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Account</h1>
+
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="me() as me; else noMe">
+    <section class="section">
+      <h3 class="section-title">
+        <mat-icon aria-hidden="true">verified_user</mat-icon>
+        Session
+      </h3>
+
+      <div class="grid">
+        <div class="row">
+          <span class="label">Authenticated</span>
+          <span class="value">{{ me.authenticated ? 'Yes' : 'No' }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Username</span>
+          <span class="value">{{ me.username ?? '—' }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Roles</span>
+          <span class="value">{{ rolesLabel() }}</span>
+        </div>
+      </div>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section class="section" *ngIf="me.account as a">
+      <h3 class="section-title">
+        <mat-icon aria-hidden="true">badge</mat-icon>
+        Profile
+      </h3>
+
+      <div class="grid">
+        <div class="row">
+          <span class="label">Account ID</span>
+          <span class="value">#{{ a.accountId }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">User ID</span>
+          <span class="value">{{ a.userId }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Name</span>
+          <span class="value">{{ a.firstName }} {{ a.lastName }}</span>
+        </div>
+
+        <div class="row">
+          <span class="label">Email</span>
+          <span class="value">{{ a.email }}</span>
+        </div>
+
+        <div class="row" *ngIf="a.createdAt">
+          <span class="label">Created</span>
+          <span class="value">{{ a.createdAt | date:'short' }}</span>
+        </div>
+
+        <div class="row" *ngIf="a.lastLoginAt">
+          <span class="label">Last login</span>
+          <span class="value">{{ a.lastLoginAt | date:'short' }}</span>
+        </div>
+      </div>
+    </section>
+
+    <mat-divider></mat-divider>
+
+    <section class="section">
+      <h3 class="section-title">
+        <mat-icon aria-hidden="true">history</mat-icon>
+        Login history
+      </h3>
+
+      <div class="empty" *ngIf="loadingHistory()">
+        <mat-icon aria-hidden="true">hourglass_empty</mat-icon>
+        Loading login history...
+      </div>
+
+      <div class="login-history" *ngIf="!loadingHistory() && loginHistory().length; else noHistory">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Result</th>
+              <th>IP</th>
+              <th>User agent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let h of loginHistory()">
+              <td>{{ h.loggedAt | date:'short' }}</td>
+              <td>
+                <span class="result-pill" [class.success]="isSuccess(h.result)" [class.failure]="!isSuccess(h.result)">
+                  {{ h.result }}
+                </span>
+              </td>
+              <td>{{ h.ip ?? '-' }}</td>
+              <td>{{ h.userAgent ?? '-' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noHistory>
+        <div class="empty">
+          <mat-icon aria-hidden="true">info</mat-icon>
+          No login history available.
+        </div>
+      </ng-template>
+    </section>
+  </div>
+
+  <ng-template #noMe>
+    <div class="empty">
+      <mat-icon aria-hidden="true">info</mat-icon>
+      No session info.
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,153 @@
+<!-- src/app/pages/transports-page/transports-page.component.html -->
+
+<div class="page">
+  <div class="page-header">
+    <h1>Transports</h1>
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="openCreateDialog()">
+        <mat-icon>add</mat-icon>
+        New Transport
+      </button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput [formControl]="searchCtrl" placeholder="Status, id, driver, vehicle, location..." />
+    </mat-form-field>
+  </div>
+
+  <div class="table-wrapper mat-elevation-z2">
+    <table
+      mat-table
+      [dataSource]="page()?.content || []"
+      matSort
+      (matSortChange)="onSort($event)"
+    >
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let t">{{ t.id }}</td>
+      </ng-container>
+
+      <!-- DriverId -->
+      <ng-container matColumnDef="driverId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Driver</th>
+        <td mat-cell *matCellDef="let t">
+          {{ driverLabel(t.driverId) }}
+          <span class="muted" *ngIf="t.driverId"> </span>
+        </td>
+      </ng-container>
+
+      <!-- VehicleId -->
+      <ng-container matColumnDef="vehicleId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle</th>
+        <td mat-cell *matCellDef="let t">
+          {{ vehicleLabel(t.vehicleId) }}
+          <span class="muted" *ngIf="t.vehicleId"> </span>
+        </td>
+      </ng-container>
+
+      <!-- Status -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let t">
+          {{ t.status }}
+        </td>
+      </ng-container>
+
+      <!-- Planned start -->
+      <ng-container matColumnDef="plannedStartAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Planned start</th>
+        <td mat-cell *matCellDef="let t">
+          {{ t.plannedStartAt  | date : 'short' }}
+        </td>
+      </ng-container>
+
+      <!-- Planned end -->
+      <ng-container matColumnDef="plannedEndAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Planned end</th>
+        <td mat-cell *matCellDef="let t">
+          {{ t.plannedEndAt ? (t.plannedEndAt | date : 'short') : 'N/A' }}
+        </td>
+      </ng-container>
+
+      <!-- Planned distance -->
+      <ng-container matColumnDef="plannedDistanceKm">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Distance (km)</th>
+        <td mat-cell *matCellDef="let t">
+          {{ t.plannedDistanceKm ?? 'N/A' }}
+        </td>
+      </ng-container>
+
+      <!-- Pickup -->
+      <ng-container matColumnDef="pickupLocationId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Pickup</th>
+        <td mat-cell *matCellDef="let t">
+          {{ locationLabel(t.pickupLocationId) }}
+        </td>
+      </ng-container>
+
+      <!-- Delivery -->
+      <ng-container matColumnDef="deliveryLocationId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Delivery</th>
+        <td mat-cell *matCellDef="let t">
+          {{ locationLabel(t.deliveryLocationId) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let t">
+          <span [matTooltip]="editTooltip(t)" [matTooltipDisabled]="canEdit(t)">
+            <button
+              mat-icon-button
+              (click)="openEditDialog(t)"
+              matTooltip="Edit"
+              [disabled]="!canEdit(t)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </span>
+
+          <span [matTooltip]="deleteTooltip(t)" [matTooltipDisabled]="canDelete(t)">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteTransport(t)"
+              matTooltip="Delete"
+              [disabled]="!canDelete(t)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </span>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="cols"></tr>
+      <tr mat-row *matRowDef="let row; columns: cols"></tr>
+    </table>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <mat-progress-spinner
+      diameter="28" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <mat-paginator
+    [length]="page()?.totalElements || 0"
+    [pageIndex]="pageIndex()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPage($event)"
+  >
+  </mat-paginator>
+
+  <div *ngIf="!loading && page()?.content?.length === 0" style="margin-top: 1rem">
+    No transports to show.
+  </div>
+</div>
+

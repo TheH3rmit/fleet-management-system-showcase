@@ -1,0 +1,208 @@
+<div class="app-grid" [class.menu-open]="menuOpen()" [class.public]="isPublicRoute()">
+
+  <!-- HEADER -->
+  <mat-toolbar class="app-header" *ngIf="!isPublicRoute()">
+    <button
+      mat-icon-button
+      *ngIf="auth.me()?.authenticated"
+      (click)="toggleMenu()"
+      aria-label="Toggle menu"
+      class="hamburger"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span class="logo">Fleet Management</span>
+    <span class="spacer"></span>
+
+    <ng-container *ngIf="auth.me() as me">
+      <div class="login-status" *ngIf="me.authenticated">
+        <div class="info">
+          <span class="username">{{ me.username }}</span>
+          <span class="username">{{ me.account?.firstName }} {{ me.account?.lastName }}</span>
+          <span class="role">{{ me.roles?.join(', ') }}</span>
+          <span class="id">#{{ me.account?.accountId }}</span>
+        </div>
+
+        <button mat-stroked-button color="warn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </div>
+    </ng-container>
+  </mat-toolbar>
+
+  <!-- NAV (desktop) -->
+      <nav class="main-nav" *ngIf="auth.me()?.authenticated && !isPublicRoute()">
+        <!-- ADMIN -->
+        <a
+          *ngIf="auth.hasRole('ADMIN')"
+          routerLink="/users"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Users manage
+        </a>
+        <a
+          *ngIf="auth.hasRole('ADMIN')"
+          routerLink="/locations"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Location manage
+        </a>
+        <a
+          *ngIf="auth.hasRole('ADMIN')"
+          routerLink="/cargos"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Cargos manage
+        </a>
+        <a
+          *ngIf="auth.hasRole('ADMIN')"
+          routerLink="/worklog"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Work log manage
+        </a>
+
+
+        <!-- DISPATCHER -->
+        <a
+          *ngIf="auth.hasRole('DISPATCHER')"
+          routerLink="/transports"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Transports manage
+        </a>
+        <a
+          *ngIf="auth.hasRole('DISPATCHER')"
+          routerLink="/assets"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Assets manage
+        </a>
+        <a
+          *ngIf="auth.hasRole('DISPATCHER')"
+          routerLink="/drivers-manage"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Drivers manage
+        </a>
+
+        <!-- DRIVER -->
+        <a
+          *ngIf="auth.hasRole('DRIVER')"
+          routerLink="/drivers"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          My driver panel
+        </a>
+
+        <!-- Shared -->
+        <a routerLink="/account" class="nav-item" routerLinkActive="active">
+          Account
+        </a>
+  </nav>
+
+    <!-- SIDE MENU (mobile) -->
+    <aside
+      class="side-menu"
+      *ngIf="auth.me()?.authenticated && !isPublicRoute()"
+      (click)="closeMenu()"
+    >
+      <div class="panel" (click)="$event.stopPropagation()">
+        <ng-container *ngIf="auth.me() as me">
+          <div class="user-header" *ngIf="me.authenticated">
+            <span class="username">{{ me.username }}</span>
+            <span class="name">{{ me.account?.firstName }} {{ me.account?.lastName }}</span>
+            <span class="role">{{ me.roles?.join(', ') }}</span>
+            <span class="id">#{{ me.account?.accountId }}</span>
+          </div>
+        </ng-container>
+
+        <!-- ADMIN -->
+        <a
+          *ngIf="auth.hasRole('ADMIN')"
+          routerLink="/users"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Users manage
+        </a>
+        <a
+          *ngIf="auth.hasRole('ADMIN')"
+          routerLink="/locations"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Location manage
+        </a>
+        <a
+          *ngIf="auth.hasRole('ADMIN')"
+          routerLink="/cargos"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          cargos
+        </a>
+
+
+        <!-- DISPATCHER -->
+        <a
+          *ngIf="auth.hasRole('DISPATCHER')"
+          routerLink="/transports"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Transports
+        </a>
+        <a
+          *ngIf="auth.hasRole('DISPATCHER')"
+          routerLink="/assets"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Assets
+        </a>
+        <a
+          *ngIf="auth.hasRole('DISPATCHER')"
+          routerLink="/drivers-manage"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          Drivers manage
+        </a>
+
+        <!-- DRIVER -->
+        <a
+          *ngIf="auth.hasRole('DRIVER')"
+          routerLink="/drivers"
+          class="nav-item"
+          routerLinkActive="active"
+        >
+          My driver panel
+        </a>
+
+        <!-- Shared -->
+        <a routerLink="/account" class="nav-item" routerLinkActive="active">
+          Account
+        </a>
+        <button class="nav-item logout" (click)="logout()">Logout</button>
+      </div>
+    </aside>
+
+  <!-- WORKSPACE -->
+  <main class="workspace">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+
+

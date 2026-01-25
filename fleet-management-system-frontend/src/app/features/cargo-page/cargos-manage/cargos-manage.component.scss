@@ -1,0 +1,54 @@
+@use '../../../shared/styles/page-layout' as page;
+@use '../../../shared/styles/layout' as layout;
+@use '../../../shared/styles/variable' as v;
+
+.page {
+  @include page.page-base;
+}
+
+.page-header {
+  @include page.page-header;
+}
+
+.filters {
+  @include page.filters;
+}
+
+.table-wrapper {
+  @include page.table-wrapper;
+}
+
+.full-width { width: 100%; }
+
+.wrap {
+  max-width: 520px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.actions-col {
+  white-space: nowrap;
+
+  .reason {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  button[color="warn"] mat-icon {
+    color: #ff4d4d;
+  }
+
+  button[color="warn"][disabled] mat-icon {
+    color: rgba(255, 77, 77, 0.4);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: v.$space-m 0;
+}
+
+

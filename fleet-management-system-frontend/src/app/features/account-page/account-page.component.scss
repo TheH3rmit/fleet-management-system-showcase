@@ -1,0 +1,110 @@
+@use '../../shared/styles/page-layout' as page;
+@use '../../shared/styles/variable' as v;
+@use '../../shared/styles/layout' as layout;
+
+.page {
+  @include page.page-base;
+}
+
+.page-header {
+  @include page.page-header;
+
+  .actions {
+    @include layout.flex(flex-end, center, v.$space-s);
+  }
+}
+
+.content {
+  display: grid;
+  gap: v.$space-l;
+}
+
+.section {
+  display: grid;
+  gap: v.$space-m;
+  margin: 0;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: v.$space-s;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: v.$color-text;
+
+  mat-icon {
+    opacity: 0.9;
+  }
+}
+
+.login-history {
+  @include page.table-wrapper;
+}
+
+.result-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: #2f2f2f;
+  color: #e6e6e6;
+}
+
+.result-pill.success {
+  background: rgba(76, 175, 80, 0.15);
+  color: #7ee48f;
+  border: 1px solid rgba(76, 175, 80, 0.35);
+}
+
+.result-pill.failure {
+  background: rgba(244, 67, 54, 0.15);
+  color: #ff8a80;
+  border: 1px solid rgba(244, 67, 54, 0.35);
+}
+
+/* Key-value layout aligned with admin panels */
+.grid {
+  display: grid;
+  gap: v.$space-s;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: v.$space-m;
+  padding: v.$space-xs 0;
+
+  .label {
+    color: #c5c5c5;
+    font-size: 0.9rem;
+  }
+
+  .value {
+    font-weight: 600;
+    word-break: break-word;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: v.$space-xs;
+  }
+}
+
+mat-divider {
+  border-top-color: #2a2a2a;
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  gap: v.$space-s;
+  color: #c5c5c5;
+}

@@ -1,0 +1,32 @@
+@use '../../../shared/styles/variable' as v;
+@use '../../../shared/styles/layout' as layout;
+
+.content {
+  display: grid;
+  gap: v.$space-m;
+  min-width: min(760px, 92vw);
+}
+
+.toolbar {
+  @include layout.flex(space-between, center);
+  gap: v.$space-s;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: v.$radius-s;
+  background: v.$color-surface;
+}
+
+.full-width { width: 100%; }
+
+.muted {
+  opacity: .7;
+  font-size: 13px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: v.$space-m;
+}

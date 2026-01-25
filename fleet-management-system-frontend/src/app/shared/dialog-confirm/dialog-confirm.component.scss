@@ -1,0 +1,18 @@
+@use '../styles/variable' as v;
+
+h2[mat-dialog-title] {
+  display: flex;
+  align-items: center;
+  gap: v.$space-s;
+  margin: 0;
+}
+
+mat-dialog-content p {
+  margin: 0;
+}
+
+mat-dialog-actions {
+  margin-top: v.$space-s;
+}
+
+

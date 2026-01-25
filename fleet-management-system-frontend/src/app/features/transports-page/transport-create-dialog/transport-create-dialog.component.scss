@@ -1,0 +1,47 @@
+@use '../../../shared/styles/variable' as v;
+@use '../../../shared/styles/layout' as layout;
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: v.$space-m;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  @media (max-width: 840px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.span-2 {
+  grid-column: 1 / -1;
+}
+
+.field-with-action {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: v.$space-s;
+  align-items: center;
+
+  mat-form-field { width: 100%; }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    button { width: 100%; }
+  }
+}
+
+.actions {
+  @include layout.flex(flex-end, center, v.$space-s);
+  margin-top: v.$space-s;
+}
+
+.block-card {
+  padding: v.$space-m;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+

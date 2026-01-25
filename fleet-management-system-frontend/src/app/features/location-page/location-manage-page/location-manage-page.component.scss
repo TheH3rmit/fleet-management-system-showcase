@@ -1,0 +1,23 @@
+@use '../../../shared/styles/page-layout' as page;
+
+.page { @include page.page-base; }
+.page-header { @include page.page-header; }
+.filters { @include page.filters; }
+.table-wrapper { @include page.table-wrapper; }
+
+.actions-col {
+  white-space: nowrap;
+
+  .reason {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.7;
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}

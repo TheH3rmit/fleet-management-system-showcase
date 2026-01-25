@@ -1,0 +1,42 @@
+<h2>Edit driver</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+
+  <div class="readonly">
+    Editing driver for user:
+    <strong>{{ data.driver.firstName }} {{ data.driver.lastName }}</strong>
+    ({{ data.driver.email }})
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>License number</mat-label>
+    <input matInput formControlName="driverLicenseNumber" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>License category</mat-label>
+    <input matInput formControlName="driverLicenseCategory" placeholder="e.g. C+E" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>License expiry</mat-label>
+    <input matInput type="date" formControlName="driverLicenseExpiryDate" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="driverStatus">
+      <mat-option *ngFor="let st of statuses" [value]="st">
+        {{ st }}
+      </mat-option>
+    </mat-select>
+    <mat-hint *ngIf="isStatusLocked()">Status locked while ON_TRANSPORT.</mat-hint>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="saving">
+      Save
+    </button>
+  </div>
+</form>

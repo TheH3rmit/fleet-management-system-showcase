@@ -1,0 +1,31 @@
+# application-dev.yml
+spring:
+  docker:
+    compose:
+      file: ./docker-compose.dev.yml
+      lifecycle-management: start_only
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    root: INFO
+    #org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.security: DEBUG
+    com.damocles: DEBUG
+    #org.hibernate.tool.schema: DEBUG
+    #org.hibernate.persister.entity: DEBUG
+    org.springframework.web: DEBUG
+
+app:
+  cors:
+    allowed-origins:
+      - http://localhost:4200
+
+
+

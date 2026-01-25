@@ -1,0 +1,24 @@
+# application-prod.yml
+spring:
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.damocles: INFO
+    org.hibernate.SQL: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  cors:
+    allowed-origins:
+      - https://jakubpleban.com # Cloudflare domain
+      - http://localhost
+      - http://127.0.0.1
+      - http://49.13.146.206 # Hetzner ip

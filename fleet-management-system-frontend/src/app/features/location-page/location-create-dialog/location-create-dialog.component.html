@@ -1,0 +1,43 @@
+<h2>Add location</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>City</mat-label>
+    <input matInput formControlName="city" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Street</mat-label>
+    <input matInput formControlName="street" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Building number</mat-label>
+    <input matInput formControlName="buildingNumber" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Postcode</mat-label>
+    <input matInput formControlName="postcode" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Country</mat-label>
+    <input matInput formControlName="country" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Latitude (optional)</mat-label>
+    <input matInput type="number" formControlName="latitude" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Longitude (optional)</mat-label>
+    <input matInput type="number" formControlName="longitude" />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="close()" [disabled]="saving">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="saving">Save</button>
+  </div>
+</form>

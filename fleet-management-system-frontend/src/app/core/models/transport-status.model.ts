@@ -1,0 +1,12 @@
+export enum TransportStatus {
+  PLANNED = 'PLANNED',
+  ACCEPTED = 'ACCEPTED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  FINISHED = 'FINISHED',
+  CANCELLED = 'CANCELLED',
+  FAILED = 'FAILED',
+  REJECTED = 'REJECTED',
+}
+
+
+

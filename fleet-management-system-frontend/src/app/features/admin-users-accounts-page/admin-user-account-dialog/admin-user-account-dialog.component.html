@@ -1,0 +1,82 @@
+<h2>{{ data.title }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="grid">
+
+  <h3>User</h3>
+  <div class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>First name</mat-label>
+      <input matInput formControlName="firstName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Middle name</mat-label>
+      <input matInput formControlName="middleName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Last name</mat-label>
+      <input matInput formControlName="lastName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Birth date</mat-label>
+      <input matInput type="date" formControlName="birthDate" />
+    </mat-form-field>
+  </div>
+
+  <h3>Account</h3>
+  <div class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Login</mat-label>
+      <input matInput formControlName="login" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="!isEdit">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error *ngIf="form.controls.password.hasError('required')">
+        Password is required.
+      </mat-error>
+      <mat-error *ngIf="form.controls.password.hasError('minlength')">
+        Password must be at least 6 characters.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Roles</mat-label>
+      <mat-select formControlName="roles" multiple>
+        <mat-option *ngFor="let r of roles" [value]="r">{{ r }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" *ngIf="isEdit">
+      <mat-label>Reset password (optional)</mat-label>
+      <input matInput type="password" formControlName="resetPassword" placeholder="leave empty to keep" />
+    </mat-form-field>
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">
+      {{ isEdit ? 'Save' : 'Create' }}
+    </button>
+  </div>
+</form>
