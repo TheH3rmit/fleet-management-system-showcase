@@ -9,7 +9,7 @@ Prerequisites
 - Node.js 20+ and npm (for frontend dev/test)
 
 1) Clone the repository
-`git clone PLACEHOLDER`
+`git clone https://github.com/TheH3rmit/fleet-management-system-showcase.git`
 `cd fleet-management-system`
 
 2) Local development (frontend + backend)
@@ -30,7 +30,7 @@ Frontend (Angular):
 
 Backend tests:
 `cd fleet-management-system-backend`
-`./mvnw test`
+`./mvnw verify`
 
 Frontend unit tests:
 `cd ../fleet-management-system-frontend`
@@ -42,7 +42,7 @@ Frontend E2E tests:
 4) Production deploy (single VPS, Docker)
 
 On the server:
-`git clone <PLACEHOLDER>`
+`git clone https://github.com/TheH3rmit/fleet-management-system-showcase.git`
 `cd fleet-management-system`
 
 Edit production environment:
