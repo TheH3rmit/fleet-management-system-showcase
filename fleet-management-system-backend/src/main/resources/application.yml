@@ -1,5 +1,13 @@
 # application.yml
 spring:
+  config:
+    import:
+      - "optional:file:../.env"
+      - "optional:file:../.env.dev.properties"
+      - "optional:file:../.env.prod.properties"
+      - "optional:file:.env"
+      - "optional:file:.env.dev.properties"
+      - "optional:file:.env.prod.properties"
   session:
     store-type: none
 

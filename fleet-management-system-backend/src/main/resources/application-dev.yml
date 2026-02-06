@@ -2,7 +2,8 @@
 spring:
   docker:
     compose:
-      file: ./docker-compose.dev.yml
+      file: ../docker-compose.dev.yml
+      env-file: ../.env.dev
       lifecycle-management: start_only
 
   jpa:
@@ -21,6 +22,10 @@ logging:
     #org.hibernate.tool.schema: DEBUG
     #org.hibernate.persister.entity: DEBUG
     org.springframework.web: DEBUG
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}
 
 app:
   cors:
