@@ -65,7 +65,7 @@ At minimum, for production you should set e.g.:
 
 ## 3) Local run (development mode)
 
-### 3.1 Start backend + database (Scenario A - recommended)
+### 3.1 Start backend + database (Scenario recommended)
 
 Backend starts Docker Compose (database) automatically via Spring Boot.
 
@@ -262,7 +262,7 @@ Minimalnie dla produkcji należy ustawić m.in.:
 
 ## 3) Uruchomienie lokalne (tryb deweloperski)
 
-### 3.1 Uruchomienie backendu + bazy (Scenariusz A - rekomendowany)
+### 3.1 Uruchomienie backendu + bazy (Scenariusz rekomendowany)
 
 Backend sam uruchamia Docker Compose (baza) przez Spring Boot.
 
