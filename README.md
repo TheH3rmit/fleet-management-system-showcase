@@ -7,6 +7,7 @@ The project consists of:
   and the runtime/infrastructure setup is based on Docker and Docker Compose.
 
 Repository: https://github.com/TheH3rmit/fleet-management-system-showcase
+Demo available at: https://jakubpleban.com
 
 ---
 
@@ -206,6 +207,7 @@ Projekt składa się z:
   a infrastruktura uruchomieniowa jest przygotowana w oparciu o Docker oraz Docker Compose.
 
 Repozytorium: https://github.com/TheH3rmit/fleet-management-system-showcase
+Demo dostępne na: https://jakubpleban.com
 
 ---
 
